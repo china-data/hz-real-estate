@@ -9,7 +9,7 @@ const path = require('path');
   console.log(`current time: ${new Date().toISOString()}`);
 
 
-  const today = { date: moment().format('YYYY-MM-DD') };
+  const today = { date: moment().format('YYYY-MM-DD'), timestamp: Date.now() };
   const text = await fetch('https://hz-realte-proxy-china-dl-estate-kzsdljebhh.cn-shanghai.fcapp.run').then(d => d.text());
   // const text = await fetch('https://api.hzfc.cn/hzfcweb_ifs/interaction/scxx').then(d => d.text());
   const dom = new JSDOM(text);

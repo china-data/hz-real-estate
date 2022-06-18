@@ -5,7 +5,7 @@ const path = require('path');
 
 !(async () => {
   console.log(`current time: ${new Date().toISOString()}`);
-  const today = { date: moment().format('YYYY-MM-DD')};
+  const today = { date: moment().format('YYYY-MM-DD'), timestamp: Date.now() };
 
   const all = await fetch("http://www.tmsf.com/esfn/EsfnSearch_sellhousNewList.jspx", {
     "headers": {
