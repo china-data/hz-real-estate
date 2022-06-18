@@ -1,0 +1,25 @@
+{
+  "name": "hz-real-estate",
+  "version": "1.0.0",
+  "description": "Information come from: * [ZhangZhou City Plan](http://ghzy.hangzhou.gov.cn/art/2021/9/28/art_1228968051_35440.html) * [ChinaCityPlan](http://www.chinacityplan.com//square/goBuildingSquare?city=330100) * [tmsf](http://www.tmsf.com/esfn/EsfnSearch_csnewInfo.jspx?isdrop=1)",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/china-data/hz-real-estate.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/china-data/hz-real-estate/issues"
+  },
+  "homepage": "https://github.com/china-data/hz-real-estate#readme",
+  "dependencies": {
+    "moment": "^2.29.3",
+    "node-fetch": "^2.6.7"
+  }
+}
