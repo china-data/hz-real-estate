@@ -10,7 +10,8 @@ const path = require('path');
 
 
   const today = { date: moment().format('YYYY-MM-DD') };
-  const text = await fetch('https://api.hzfc.cn/hzfcweb_ifs/interaction/scxx').then(d => d.text());
+  const text = await fetch('https://hz-realte-proxy-china-dl-estate-kzsdljebhh.cn-shanghai.fcapp.run').then(d => d.text());
+  // const text = await fetch('https://api.hzfc.cn/hzfcweb_ifs/interaction/scxx').then(d => d.text());
   const dom = new JSDOM(text);
   
   // 可售卖房源
