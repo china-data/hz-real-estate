@@ -8,9 +8,9 @@ on:
         required: true
         default: 'warning'
   # （东8区，所以需要 +8小时） 拉取最新数据
-  # 每天 10点
+  # 每天 23 点
   schedule:
-  - cron: "0 18 * * *"
+  - cron: "0 15 * * *"
 
 jobs:
   xwlb:

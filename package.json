@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/china-data/hz-real-estate#readme",
   "dependencies": {
+    "jsdom": "^19.0.0",
     "moment": "^2.29.3",
     "node-fetch": "^2.6.7"
   }

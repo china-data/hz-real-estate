@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 
 !(async () => {
+  console.log(`current time: ${new Date().toISOString()}`);
   const today = { date: moment().format('YYYY-MM-DD')};
 
   const all = await fetch("http://www.tmsf.com/esfn/EsfnSearch_sellhousNewList.jspx", {
@@ -45,7 +46,7 @@ const path = require('path');
   today.rise = rise?.allcounts;
   today.isnew = isnew?.allcounts;
 
-  const filePath = path.join(__dirname, `../assets/${today.date}.json`);
+  const filePath = path.join(__dirname, `../assets/tmsf-second-${today.date}.json`);
   fs.writeFileSync(filePath, JSON.stringify(today));
   console.log(today)
 })();
