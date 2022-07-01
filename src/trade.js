@@ -10,7 +10,16 @@ const path = require('path');
 
 
   const today = { date: moment().format('YYYY-MM-DD'), timestamp: Date.now() };
-  const text = await fetch('https://hz-realte-proxy-china-dl-estate-kzsdljebhh.cn-shanghai.fcapp.run').then(d => d.text());
+  let text = '';
+  
+  // Try again
+  try {
+    text = await fetch('https://hz-realte-proxy-china-dl-estate-kzsdljebhh.cn-shanghai.fcapp.run').then(d => d.text());
+  } catch(err) {
+    text = await fetch('https://hz-realte-proxy-china-dl-estate-kzsdljebhh.cn-shanghai.fcapp.run').then(d => d.text());
+  }
+
+
   // const text = await fetch('https://api.hzfc.cn/hzfcweb_ifs/interaction/scxx').then(d => d.text());
   const dom = new JSDOM(text);
   
