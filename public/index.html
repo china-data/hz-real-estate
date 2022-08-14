@@ -1,106 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,height=device-height">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,height=device-height" />
     <title>曲线折线图</title>
-    <style>html,body{height:100%;margin:0;}</style>
-</head>
-<body>
-<p>可售套数</p>
-<div id="availableHouse1"></div>
-<p>可售面积</p>
-<div id="availableHouse2"></div>
+    <style>
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+      }
+      p {
+        text-align: center;
+        margin-top: 24px;
+        border-top: solid 1px #ccc;
+        padding-top: 24px;
+        font-family: sans-serif;
+      }
+      a {
+        padding: 8px 12px;
+        display: inline-block;
+        background: #1890ff;
+        color: #fff;
+        text-decoration: none;
+        margin: 12px 24px;
+        border-radius: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <a href="?">默认核心地区数据</a>
+      <a href="?showall=1">显示所有杭州地区</a>
+      <a href="?showall=1&showsum=1">显示所有杭州地区和合计</a>
+    </div>
+    <p>可售套数</p>
+    <div id="availableHouse1"></div>
+    <p>可售面积</p>
+    <div id="availableHouse2"></div>
 
-<p>商品房成交套数</p>
-<div id="commercialHouse1"></div>
-<p>商品房成交面积</p>
-<div id="commercialHouse2"></div>
+    <p>商品房成交套数</p>
+    <div id="commercialHouse1"></div>
+    <p>商品房成交面积</p>
+    <div id="commercialHouse2"></div>
 
-<p>二手房成交套数</p>
-<div id="previouslyOwnedHouse1"></div>
-<p>二手房成交面积</p>
-<div id="previouslyOwnedHouse2"></div>
+    <p>二手房成交套数</p>
+    <div id="previouslyOwnedHouse1"></div>
+    <p>二手房成交面积</p>
+    <div id="previouslyOwnedHouse2"></div>
 
-<script>/*Fixing iframe window.innerHeight 0 issue in Safari*/document.body.clientHeight;</script>
-<script src="https://gw.alipayobjects.com/os/antv/pkg/_antv.g2-3.5.1/dist/g2.min.js"></script>
-<script src="https://gw.alipayobjects.com/os/antv/pkg/_antv.data-set-0.10.1/dist/data-set.min.js"></script>
-<script type="module">
-  var data = await fetch('./result.json').then(d => d.json());
+    <script>
+      /*Fixing iframe window.innerHeight 0 issue in Safari*/ document.body
+        .clientHeight;
+    </script>
+    <script src="https://gw.alipayobjects.com/os/antv/pkg/_antv.g2-3.5.1/dist/g2.min.js"></script>
+    <script src="https://gw.alipayobjects.com/os/antv/pkg/_antv.data-set-0.10.1/dist/data-set.min.js"></script>
+    <script type="module">
+      var data = await fetch("./result.json").then((d) => d.json());
 
-  function render(name, container) {
-    var ds = new DataSet();
-    var dv = ds.createView().source(data);
-    // fold 方式完成了行列转换，如果不想使用 DataSet 直接手工转换数据即可
-    dv.transform({
-      type: 'fold',
-      fields: [
-        `${name}_上城`,
-        `${name}_下城`,
-        `${name}_江干`,
-        `${name}_拱墅`,
-        `${name}_西湖`,
-        `${name}_滨江`,
-        `${name}_之江`,
-        `${name}_萧山`,
-        `${name}_余杭`,
-        `${name}_钱塘新区`,
-        `${name}_富阳`,
-        `${name}_桐庐`,
-        `${name}_建德`,
-        `${name}_淳安`,
-        `${name}_临安`,
-        `${name}_合计`,
-      ], // 展开字段集
-      key: 'city', // key字段
-      value: 'number' // value字段
-    }).transform({
-      type: 'map',
-      callback(row) {
-        return {
-          ...row,
-          city: row.city.replace(name + '_', ''),
+      function render(name, container) {
+        var ds = new DataSet();
+        var dv = ds.createView().source(data);
+
+        let fields = [
+          `${name}_上城`,
+          `${name}_下城`,
+          `${name}_江干`,
+          `${name}_拱墅`,
+          `${name}_西湖`,
+          `${name}_滨江`,
+          `${name}_之江`,
+          `${name}_钱塘新区`,
+
+          ,
+        ];
+
+        if (/showall=1/.test(location.href)) {
+          fields = fields.concat([
+            `${name}_萧山`,
+            `${name}_余杭`,
+            `${name}_富阳`,
+            `${name}_桐庐`,
+            `${name}_建德`,
+            `${name}_淳安`,
+            `${name}_临安`,
+          ]);
         }
-      }
-    });
 
-    // console.log(dv)
-    var chart = new G2.Chart({
-      container,
-      forceFit: true,
-      height: window.innerHeight / 2
-    });
-    chart.source(dv, {
-      date: {
-        range: [0, 1]
-      }
-    });
-    chart.tooltip({
-      crosshairs: {
-        type: 'line'
-      }
-    });
-    chart.axis('number', {
-      // label: {
-      //   formatter: function formatter(val) {
-      //     return val + '°C';
-      //   }
-      // }
-    });
-    chart.line().position('date*number').color('city').shape('smooth');
-    chart.point().position('date*number').color('city').size(4).shape('circle').style({
-      stroke: '#fff',
-      lineWidth: 1
-    });
-    chart.render();
-  }
+        if (/showsum=1/.test(location.href)) {
+          fields = fields.concat([`${name}_合计`]);
+        }
 
-  render('可售套数', 'availableHouse1')
-  render('可售面积', 'availableHouse2')
-  render('商品房成交套数', 'commercialHouse1')
-  render('商品房成交面积', 'commercialHouse2')
-  render('二手房成交套数', 'previouslyOwnedHouse1')
-  render('二手房成交面积', 'previouslyOwnedHouse2')
-</script>
-</body>
+        // fold 方式完成了行列转换，如果不想使用 DataSet 直接手工转换数据即可
+        dv.transform({
+          type: "fold",
+          fields, // 展开字段集
+          key: "city", // key字段
+          value: "number", // value字段
+        }).transform({
+          type: "map",
+          callback(row) {
+            return {
+              ...row,
+              city: row.city.replace(name + "_", ""),
+            };
+          },
+        });
+
+        // console.log(dv)
+        var chart = new G2.Chart({
+          container,
+          forceFit: true,
+          height: window.innerHeight / 2,
+        });
+        chart.source(dv, {
+          date: {
+            range: [0, 1],
+          },
+        });
+        chart.tooltip({
+          crosshairs: {
+            type: "line",
+          },
+        });
+        chart.axis("number", {
+          // label: {
+          //   formatter: function formatter(val) {
+          //     return val + '°C';
+          //   }
+          // }
+        });
+        chart.line().position("date*number").color("city").shape("smooth");
+        chart
+          .point()
+          .position("date*number")
+          .color("city")
+          .size(4)
+          .shape("circle")
+          .style({
+            stroke: "#fff",
+            lineWidth: 1,
+          });
+        chart.render();
+      }
+
+      render("可售套数", "availableHouse1");
+      render("可售面积", "availableHouse2");
+      render("商品房成交套数", "commercialHouse1");
+      render("商品房成交面积", "commercialHouse2");
+      render("二手房成交套数", "previouslyOwnedHouse1");
+      render("二手房成交面积", "previouslyOwnedHouse2");
+    </script>
+  </body>
 </html>
