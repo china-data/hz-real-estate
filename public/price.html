@@ -39,7 +39,7 @@
       data.forEach(y => {
         allData = allData.concat(y.list.map(t => {
           t.m = String(Number(y.year) * 100 + Number(t.m));
-          t.n = Number(t.n);
+          t.n = Number(t.n) || 0;
           t.s = Number(t.s) || 0;
           return t;
         }))
