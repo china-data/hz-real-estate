@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,height=device-height" />
+    <title>杭州历史房价</title>
+    <style>
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+      }
+      p {
+        text-align: center;
+        margin-top: 24px;
+        border-top: solid 1px #ccc;
+        padding-top: 24px;
+        font-family: sans-serif;
+      }
+      a {
+        padding: 8px 12px;
+        display: inline-block;
+        background: #1890ff;
+        color: #fff;
+        text-decoration: none;
+        margin: 12px 24px;
+        border-radius: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <p>房价</p>
+    <div id="price"></div>
+    <script src="https://gw.alipayobjects.com/os/antv/pkg/_antv.g2-3.5.1/dist/g2.min.js"></script>
+    <script src="https://gw.alipayobjects.com/os/antv/pkg/_antv.data-set-0.10.1/dist/data-set.min.js"></script>
+    <script type="module">
+      var data = await fetch("../price/data.json").then((d) => d.json());
+      var allData = [];
+      data.forEach(y => {
+        allData = allData.concat(y.list.map(t => {
+          t.m = String(Number(y.year) * 100 + Number(t.m));
+          t.n = Number(t.n);
+          t.s = Number(t.s) || 0;
+          return t;
+        }))
+      });
+
+      console.log(data, allData)
+
+      function render(container) {
+        var ds = new DataSet();
+        var dv = ds.createView().source(allData);
+
+        let fields = [
+          `n`, // 新房
+          `s` // 二手房
+        ];
+
+        // fold 方式完成了行列转换，如果不想使用 DataSet 直接手工转换数据即可
+        dv.transform({
+          type: "fold",
+          fields, // 展开字段集
+          key: "type", // key字段
+          value: "number", // value字段
+        }).transform({
+          type: "map",
+          callback(row) {
+            return {
+              ...row,
+              type: row.type === 's' ? "二手房" : '新房'
+            };
+          },
+        });
+
+        console.log(dv, dv.rows)
+        var chart = new G2.Chart({
+          container,
+          forceFit: true,
+          height: window.innerHeight / 2,
+        });
+        chart.source(dv, {
+          date: {
+            range: [0, 1],
+          },
+        });
+        chart.tooltip({
+          crosshairs: {
+            type: "line",
+          },
+        });
+        chart.axis("number", {
+          // label: {
+          //   formatter: function formatter(val) {
+          //     return val + '°C';
+          //   }
+          // }
+        });
+        chart.line().position("m*number").color("type").shape("smooth");
+        chart
+          .point()
+          .position("m*number")
+          .color("type")
+          .size(4)
+          .shape("circle")
+          .style({
+            stroke: "#fff",
+            lineWidth: 1,
+          });
+        chart.render();
+      }
+
+      render("price")
+    </script>
+  </body>
+</html>
