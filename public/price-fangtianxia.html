@@ -34,26 +34,82 @@
     <script src="https://gw.alipayobjects.com/os/antv/pkg/_antv.g2-3.5.1/dist/g2.min.js"></script>
     <script src="https://gw.alipayobjects.com/os/antv/pkg/_antv.data-set-0.10.1/dist/data-set.min.js"></script>
     <script type="module">
-      var data = await fetch("../price/data.json").then((d) => d.json());
-      var allData = [];
-      data.forEach(y => {
-        allData = allData.concat(y.list.map(t => {
-          t.m = String(Number(y.year) * 100 + Number(t.m));
-          t.n = Number(t.n) || 0;
-          t.s = Number(t.s) || 0;
-          return t;
-        }))
-      });
+      // var data = await fetch("../price-huiju/data.json").then((d) => d.json());
 
-      console.log(data, allData)
+      async function loadSecondXML() {
+        var sData = await fetch("../price-fangtianxia/2022-10-second.xml").then(
+          (d) => d.text()
+        );
+        var container = document.createElement("div");
+        container.innerHTML = sData;
+
+        return Array.from(container.querySelectorAll("listinfo")).map(
+          (t) => ({
+            m: t.querySelector("dealdatetime").innerText,
+            s: Number(t.querySelector("swatchprice").innerText),
+          })
+        );
+      }
+
+      async function loadSecondJson() {
+        var sData = await fetch("../price-fangtianxia/2022-10-second.json").then(
+          (d) => d.json()
+        ).then(d => d.data.dataList);
+
+
+        return sData.map(
+          (t) => ({
+            m: t.dealDate,
+            s: Number(t.averagePrice),
+          })
+        );
+      }
+
+      async function loadNewXML() {
+        var sData = await fetch("../price-fangtianxia/2022-10-new.xml").then(
+          (d) => d.text()
+        );
+        var container = document.createElement("div");
+        container.innerHTML = sData;
+
+        return Array.from(container.querySelectorAll("mdate")).map(
+          (t) => ({
+            m: t.querySelector("time").innerText.replace('-01', ''),
+            n: Number(t.querySelector("m_makeprice_s").innerText),
+          })
+        );
+      }
+
+      var allData = [];
+
+      allData = allData.concat(await loadSecondXML());
+      allData = allData.concat(await loadSecondJson());
+      allData = allData.concat(await loadNewXML());
+
+      // 按月份进行数据合并
+      var allDataMap = {}
+      allData.forEach(item => {
+        var a = allDataMap[item.m] || {};
+        a.n = item.n || a.n || 0;
+        a.s = item.s || a.s || 0;
+        a.m = item.m;
+        allDataMap[item.m] = a;
+      });
+      var allDataList = [];
+      Object.keys(allDataMap).forEach(key =>{
+        allDataList.push(allDataMap[key]);
+      })
+
+      allDataList.sort((a, b) => a.m.localeCompare(b.m));
+      console.log(allDataList);
 
       function render(container) {
         var ds = new DataSet();
-        var dv = ds.createView().source(allData);
+        var dv = ds.createView().source(allDataList);
 
         let fields = [
           `n`, // 新房
-          `s` // 二手房
+          `s`, // 二手房
         ];
 
         // fold 方式完成了行列转换，如果不想使用 DataSet 直接手工转换数据即可
@@ -67,12 +123,12 @@
           callback(row) {
             return {
               ...row,
-              type: row.type === 's' ? "二手房" : '新房'
+              type: row.type === "s" ? "二手房" : "新房",
             };
           },
         });
 
-        console.log(dv, dv.rows)
+        console.log(dv, dv.rows);
         var chart = new G2.Chart({
           container,
           forceFit: true,
@@ -109,7 +165,7 @@
         chart.render();
       }
 
-      render("price")
+      render("price");
     </script>
   </body>
 </html>

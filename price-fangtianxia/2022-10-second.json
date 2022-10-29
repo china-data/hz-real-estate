@@ -1,0 +1,266 @@
+{
+  "code": "100000",
+  "data": {
+    "total": 179,
+    "pages": 5,
+    "pageNo": 1,
+    "dataList": [
+      {
+        "priceMonthAdd": "1.60%",
+        "dealMonthAdd": "0%",
+        "dealDate": "2022-10",
+        "averagePrice": "37040",
+        "dealCount": ""
+      },
+      {
+        "priceMonthAdd": "-0.99%",
+        "dealMonthAdd": "0%",
+        "dealDate": "2022-09",
+        "averagePrice": "36455",
+        "dealCount": "3025"
+      },
+      {
+        "priceMonthAdd": "1.48%",
+        "dealMonthAdd": "0%",
+        "dealDate": "2022-08",
+        "averagePrice": "36821",
+        "dealCount": "3741"
+      },
+      {
+        "priceMonthAdd": "-3.74%",
+        "dealMonthAdd": "0%",
+        "dealDate": "2022-07",
+        "averagePrice": "36283",
+        "dealCount": "4098"
+      },
+      {
+        "priceMonthAdd": "-4.95%",
+        "dealMonthAdd": "0%",
+        "dealDate": "2022-06",
+        "averagePrice": "37692",
+        "dealCount": "5545"
+      },
+      {
+        "priceMonthAdd": "0.11%",
+        "dealMonthAdd": "0%",
+        "dealDate": "2022-05",
+        "averagePrice": "39655",
+        "dealCount": "3034"
+      },
+      {
+        "priceMonthAdd": "-0.48%",
+        "dealMonthAdd": "0%",
+        "dealDate": "2022-04",
+        "averagePrice": "39612",
+        "dealCount": "2465"
+      },
+      {
+        "priceMonthAdd": "-1.00%",
+        "dealMonthAdd": "0%",
+        "dealDate": "2022-03",
+        "averagePrice": "39804",
+        "dealCount": "3314"
+      },
+      {
+        "priceMonthAdd": "-0.33%",
+        "dealMonthAdd": "0%",
+        "dealDate": "2022-02",
+        "averagePrice": "40206",
+        "dealCount": "1567"
+      },
+      {
+        "priceMonthAdd": "1.15%",
+        "dealMonthAdd": "0%",
+        "dealDate": "2022-01",
+        "averagePrice": "40340",
+        "dealCount": "3648"
+      },
+      {
+        "priceMonthAdd": "0.61%",
+        "dealMonthAdd": "0%",
+        "dealDate": "2021-12",
+        "averagePrice": "39880",
+        "dealCount": "3042"
+      },
+      {
+        "priceMonthAdd": "0.85%",
+        "dealMonthAdd": "0%",
+        "dealDate": "2021-11",
+        "averagePrice": "39639",
+        "dealCount": "2556"
+      },
+      {
+        "priceMonthAdd": "-0.24%",
+        "dealMonthAdd": "0%",
+        "dealDate": "2021-10",
+        "averagePrice": "39303",
+        "dealCount": "1852"
+      },
+      {
+        "priceMonthAdd": "0.91%",
+        "dealMonthAdd": "0%",
+        "dealDate": "2021-09",
+        "averagePrice": "39398",
+        "dealCount": "2467"
+      },
+      {
+        "priceMonthAdd": "-0.21%",
+        "dealMonthAdd": "0%",
+        "dealDate": "2021-08",
+        "averagePrice": "39043",
+        "dealCount": "3575"
+      },
+      {
+        "priceMonthAdd": "3.38%",
+        "dealMonthAdd": "0%",
+        "dealDate": "2021-07",
+        "averagePrice": "39125",
+        "dealCount": "5515"
+      },
+      {
+        "priceMonthAdd": "0.46%",
+        "dealMonthAdd": "0%",
+        "dealDate": "2021-06",
+        "averagePrice": "37845",
+        "dealCount": "5428"
+      },
+      {
+        "priceMonthAdd": "0.89%",
+        "dealMonthAdd": "0%",
+        "dealDate": "2021-05",
+        "averagePrice": "37672",
+        "dealCount": "6762"
+      },
+      {
+        "priceMonthAdd": "-0.29%",
+        "dealMonthAdd": "0%",
+        "dealDate": "2021-04",
+        "averagePrice": "37338",
+        "dealCount": "15724"
+      },
+      {
+        "priceMonthAdd": "1.22%",
+        "dealMonthAdd": "0%",
+        "dealDate": "2021-03",
+        "averagePrice": "37445",
+        "dealCount": "11297"
+      },
+      {
+        "priceMonthAdd": "1.80%",
+        "dealMonthAdd": "0%",
+        "dealDate": "2021-02",
+        "averagePrice": "36994",
+        "dealCount": "3498"
+      },
+      {
+        "priceMonthAdd": "-0.91%",
+        "dealMonthAdd": "0%",
+        "dealDate": "2021-01",
+        "averagePrice": "36339",
+        "dealCount": "8103"
+      },
+      {
+        "priceMonthAdd": "1.58%",
+        "dealMonthAdd": "0%",
+        "dealDate": "2020-12",
+        "averagePrice": "36673",
+        "dealCount": "8124"
+      },
+      {
+        "priceMonthAdd": "0.54%",
+        "dealMonthAdd": "0%",
+        "dealDate": "2020-11",
+        "averagePrice": "36104",
+        "dealCount": "6881"
+      },
+      {
+        "priceMonthAdd": "0.75%",
+        "dealMonthAdd": "0%",
+        "dealDate": "2020-10",
+        "averagePrice": "35910",
+        "dealCount": "7192"
+      },
+      {
+        "priceMonthAdd": "0.28%",
+        "dealMonthAdd": "0%",
+        "dealDate": "2020-09",
+        "averagePrice": "35644",
+        "dealCount": "7672"
+      },
+      {
+        "priceMonthAdd": "1.59%",
+        "dealMonthAdd": "0%",
+        "dealDate": "2020-08",
+        "averagePrice": "35544",
+        "dealCount": "9214"
+      },
+      {
+        "priceMonthAdd": "0.39%",
+        "dealMonthAdd": "0%",
+        "dealDate": "2020-07",
+        "averagePrice": "34987",
+        "dealCount": "9673"
+      },
+      {
+        "priceMonthAdd": "0.65%",
+        "dealMonthAdd": "0%",
+        "dealDate": "2020-06",
+        "averagePrice": "34851",
+        "dealCount": "9137"
+      },
+      {
+        "priceMonthAdd": "0.59%",
+        "dealMonthAdd": "0%",
+        "dealDate": "2020-05",
+        "averagePrice": "34625",
+        "dealCount": "4249"
+      },
+      {
+        "priceMonthAdd": "-0.43%",
+        "dealMonthAdd": "0%",
+        "dealDate": "2020-04",
+        "averagePrice": "34422",
+        "dealCount": "4196"
+      },
+      {
+        "priceMonthAdd": "-1.83%",
+        "dealMonthAdd": "0%",
+        "dealDate": "2020-03",
+        "averagePrice": "34570",
+        "dealCount": "2645"
+      },
+      {
+        "priceMonthAdd": "3.68%",
+        "dealMonthAdd": "0%",
+        "dealDate": "2020-02",
+        "averagePrice": "35216",
+        "dealCount": "273"
+      },
+      {
+        "priceMonthAdd": "0.66%",
+        "dealMonthAdd": "0%",
+        "dealDate": "2020-01",
+        "averagePrice": "33966",
+        "dealCount": "2131"
+      },
+      {
+        "priceMonthAdd": "0.22%",
+        "dealMonthAdd": "0%",
+        "dealDate": "2019-12",
+        "averagePrice": "33742",
+        "dealCount": "3339"
+      },
+      {
+        "priceMonthAdd": "0.13%",
+        "dealMonthAdd": "0%",
+        "dealDate": "2019-11",
+        "averagePrice": "33669",
+        "dealCount": "2433"
+      }
+    ],
+    "pageSize": 36,
+    "timestamp": 1667049835
+  },
+  "message": "请求成功",
+  "timestamp": 1667049835
+}
