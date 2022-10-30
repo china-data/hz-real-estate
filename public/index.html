@@ -33,6 +33,7 @@
       <a href="?">默认核心地区数据</a>
       <a href="?showall=1">显示所有杭州地区</a>
       <a href="?showall=1&showsum=1">显示所有杭州地区和合计</a>
+      <a href="?showold=1&showall=1&showsum=1">显示老的行政区划</a>
     </div>
     <p>可售套数</p>
     <div id="availableHouse1"></div>
@@ -53,42 +54,69 @@
       /*Fixing iframe window.innerHeight 0 issue in Safari*/ document.body
         .clientHeight;
     </script>
-    <script src="https://gw.alipayobjects.com/os/antv/pkg/_antv.g2-3.5.1/dist/g2.min.js"></script>
+    <!-- <script src="https://gw.alipayobjects.com/os/antv/pkg/_antv.g2-3.5.1/dist/g2.min.js"></script> -->
+    <script src="https://npm.elemecdn.com/@antv/g2@4.2.8/dist/g2.min.js"></script>
     <script src="https://gw.alipayobjects.com/os/antv/pkg/_antv.data-set-0.10.1/dist/data-set.min.js"></script>
     <script type="module">
       var data = await fetch("./result.json").then((d) => d.json());
+
+      // come from default color: https://unpkg.com/browse/@antv/g2@3.5.1/src/theme/default.js
+
+      const AREAS_OLD = [
+        "上城",
+        "下城",
+        "江干",
+        "拱墅",
+        "西湖",
+        "滨江",
+        "之江",
+        "钱塘新区",
+        "萧山",
+        "余杭",
+        "钱塘区",
+        "富阳",
+        "桐庐",
+        "建德",
+        "淳安",
+        "临安",
+        "合计",
+      ];
+      const AREAS_NEW = [
+        "上城",
+        "拱墅",
+        "西湖",
+        "滨江",
+        "临平",
+        "萧山",
+        "余杭",
+        "钱塘区",
+        "富阳",
+        "桐庐",
+        "建德",
+        "淳安",
+        "临安",
+        "合计",
+      ];
+
+      let AREAS = [];
+      if (/showold=1/.test(location.href)) {
+        AREAS = AREAS_OLD;
+      } else {
+        AREAS = AREAS_NEW;
+      }
 
       function render(name, container) {
         var ds = new DataSet();
         var dv = ds.createView().source(data);
 
-        let fields = [
-          `${name}_上城`,
-          `${name}_下城`,
-          `${name}_江干`,
-          `${name}_拱墅`,
-          `${name}_西湖`,
-          `${name}_滨江`,
-          `${name}_之江`,
-          `${name}_钱塘新区`,
-
-          ,
-        ];
+        let fields = AREAS.slice(0, 4).map((t) => `${name}_${t}`);
 
         if (/showall=1/.test(location.href)) {
-          fields = fields.concat([
-            `${name}_萧山`,
-            `${name}_余杭`,
-            `${name}_富阳`,
-            `${name}_桐庐`,
-            `${name}_建德`,
-            `${name}_淳安`,
-            `${name}_临安`,
-          ]);
+          fields = AREAS.slice(0, AREAS.length - 1).map((t) => `${name}_${t}`);
         }
 
         if (/showsum=1/.test(location.href)) {
-          fields = fields.concat([`${name}_合计`]);
+          fields = AREAS.map((t) => `${name}_${t}`);
         }
 
         // fold 方式完成了行列转换，如果不想使用 DataSet 直接手工转换数据即可
@@ -101,47 +129,35 @@
           type: "map",
           callback(row) {
             return {
-              ...row,
+              // ...row,
+              date: row.date,
+              number: row.number || 0,
               city: row.city.replace(name + "_", ""),
             };
           },
         });
 
-        // console.log(dv)
+        console.log(name, dv.rows);
         var chart = new G2.Chart({
           container,
-          forceFit: true,
+          autoFit: true,
+          height: 500,
+          // forceFit: true,
           height: window.innerHeight / 2,
         });
-        chart.source(dv, {
-          date: {
-            range: [0, 1],
-          },
-        });
-        chart.tooltip({
-          crosshairs: {
-            type: "line",
-          },
-        });
-        chart.axis("number", {
-          // label: {
-          //   formatter: function formatter(val) {
-          //     return val + '°C';
-          //   }
-          // }
-        });
+
+        chart.data(dv.rows);
         chart.line().position("date*number").color("city").shape("smooth");
-        chart
-          .point()
-          .position("date*number")
-          .color("city")
-          .size(4)
-          .shape("circle")
-          .style({
-            stroke: "#fff",
-            lineWidth: 1,
-          });
+        chart.option("slider", {
+          start: 0,
+          end: 1,
+          trendCfg: {
+            isArea: false,
+          },
+        });
+        addBigEvents(chart);
         chart.render();
+        document.getElementById(container).chart = chart;
       }
 
       render("可售套数", "availableHouse1");
@@ -150,6 +166,22 @@
       render("商品房成交面积", "commercialHouse2");
       render("二手房成交套数", "previouslyOwnedHouse1");
       render("二手房成交面积", "previouslyOwnedHouse2");
+
+      function addBigEvents(chart) {
+        chart.annotation().dataMarker({
+          top: true,
+          position: ["2022-08-21", 0],
+          line: {
+            length: 30,
+          },
+          text: {
+            content: "杭州行政区重新划分",
+            style: {
+              textAlign: "right",
+            },
+          },
+        });
+      }
     </script>
   </body>
 </html>
