@@ -21,6 +21,8 @@ const path = require('path');
 
 
   // const text = await fetch('https://api.hzfc.cn/hzfcweb_ifs/interaction/scxx').then(d => d.text());
+  // 20230729 接口更新：https://zwfw.fgj.hangzhou.gov.cn/hzfcweb_ifs/interaction/scxx
+  
   const dom = new JSDOM(text);
   
   // 可售卖房源
