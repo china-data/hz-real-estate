@@ -28,16 +28,18 @@ while (FAIL_TIMES < 4) {
 
     const cresult = {};
     file.availableHouse.forEach(item => {
-      cresult[`可售套数_${item[0]}`] = Number(item[3].replace('套', ''));
-      cresult[`可售面积_${item[0]}`] = Number(item[4].replace('m²', ''));
+      // 从 2023 12 月开始，官方数据中加了区，比如：滨江 改成了 滨江区
+      // 为方便和原有数据融合，统一把 区 去掉
+      cresult[`可售套数_${item[0].replace('区', '')}`] = Number(item[3].replace('套', ''));
+      cresult[`可售面积_${item[0].replace('区', '')}`] = Number(item[4].replace('m²', ''));
     });
     file.commercialHouse.forEach(item => {
-      cresult[`商品房成交套数_${item[0]}`] = Number(item[3].replace('套', ''));
-      cresult[`商品房成交面积_${item[0]}`] = Number(item[4].replace('m²', ''));
+      cresult[`商品房成交套数_${item[0].replace('区', '')}`] = Number(item[3].replace('套', ''));
+      cresult[`商品房成交面积_${item[0].replace('区', '')}`] = Number(item[4].replace('m²', ''));
     });
     file.previouslyOwnedHouse.forEach(item => {
-      cresult[`二手房成交套数_${item[0]}`] = Number(item[3].replace('套', ''));
-      cresult[`二手房成交面积_${item[0]}`] = Number(item[4].replace('m²', ''));
+      cresult[`二手房成交套数_${item[0].replace('区', '')}`] = Number(item[3].replace('套', ''));
+      cresult[`二手房成交面积_${item[0].replace('区', '')}`] = Number(item[4].replace('m²', ''));
     });
 
     FINAL_RESULT.push({
