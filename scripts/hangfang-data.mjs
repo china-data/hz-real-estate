@@ -36,10 +36,10 @@ function fetchData (date) {
 }
 
 !(async () => {
-  const final = dayjs('2023-07-29');
+  const final = dayjs('2024-04-29');
   for (let i = 0; i < 70; i++) {
 
-    const current = dayjs('2023-07-07').add(i, 'days');
+    const current = dayjs('2024-03-18').add(i, 'days');
 
     // 跳出循环
     if (current.unix() >= final.unix()) return;
